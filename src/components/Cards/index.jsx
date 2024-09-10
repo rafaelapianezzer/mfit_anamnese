@@ -10,7 +10,6 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { addAnamnese } from '../../store/anamneses/anamnesesReducer';
 
-
 export const Cards = () => {
   const dispatch = useDispatch();
   const students = useSelector((state) => state.user.students);
@@ -22,9 +21,6 @@ export const Cards = () => {
   const [selectedModel, setSelectedModel] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const navigate = useNavigate();
-
-
- 
 
   const handleOpenModal = (user = null) => {
     setSelectedUser(user);
@@ -38,7 +34,6 @@ export const Cards = () => {
 
   const handleOpenAnamnesesModal = () => {
     setAnamnesesModalOpen(true);
-    // setTestInput('TESTE');
     setSelectedStudent(null);
   };
 
@@ -48,36 +43,22 @@ export const Cards = () => {
 
   const handleSendAnamnese = () => {
     if (selectedStudent && selectedModel) {
+      console.log(selectedModel)
+
+      const model = models.find(m=> m.id === selectedModel.value)
       const newAnamnese = {
         id: Date.now(),
         aluno: selectedStudent.label,
-        name: selectedModel.label,
-        status: 1, 
-        perguntas: selectedModel.perguntas
+        nome: model.nome,
+        status: 1,
+        perguntas: model.perguntas
       };
-  
-      dispatch(addAnamnese(newAnamnese)); 
-      handleCloseAnamnesesModal(); 
-    
+
+      dispatch(addAnamnese(newAnamnese));
+      handleCloseAnamnesesModal();
+
     }
   };
-  
-
-  const handleNavigate = () => {
-    navigate('/anamneses');
-  };
-
-  const studentOptions = students.map(student => ({
-    value: student.nome,
-    label: `${student.nome} ${student.sobrenome}`
-  }));
-
-
-  const modelsOptions = models?.map((model) => ({
-    value: model.id,
-    label: model.nome
-}));
-
 
   return (
     <>
@@ -203,20 +184,19 @@ export const Cards = () => {
                   value: student.nome,
                   label: `${student.nome} ${student.sobrenome}`,
                 }))}
-                placeholder='Padrão'
                 className='my-4'
               />
             </div>
             <div>
               <button
-                className='text-gray-custom bg-gray-50 px-3 py-1 rounded'
+                className='text-white bg-gray-custom px-3 py-1 rounded'
                 onClick={handleSendAnamnese}
               >
                 Enviar
               </button>
               <button
                 onClick={handleCloseAnamnesesModal}
-                className='text-white bg-gray-custom px-3 py-1 rounded'
+                className='text-gray-custom bg-gray-50 px-3 py-1 rounded'
               >
                 Fechar
               </button>
@@ -227,3 +207,4 @@ export const Cards = () => {
     </>
   );
 };
+

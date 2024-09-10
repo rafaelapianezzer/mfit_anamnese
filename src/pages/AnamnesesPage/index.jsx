@@ -1,98 +1,100 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Header } from '../../components/Header';
-import { removeAnamnese } from '../../store/anamneses/anamnesesReducer';
+import { removeModelo, deletePergunta, addPergunta, editModelo } from '../../store/models/modelsReducer';
 import { useNavigate } from 'react-router-dom';
-import { RenderForm } from '../../components/RenderForm';
+import AnamnesesPendentes from '../../components/Anamneses/AnamnesesPendentes';
+import { AnamnesesRespondidas } from '../../components/Anamneses/AnamnesesRespondidas';
+import { Modal } from '../../components/Modal';
 
-export const Anamneses = () => {
+export const Anamneses = ({ modeloId }) => {
   const [activeView, setActiveView] = useState('modelos');
-  const [selectedForm, setSelectedForm] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedModelo, setSelectedModelo] = useState(null);
   const anamnesesList = useSelector((state) => state.anamneses.anamnesesList);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const modelos = useSelector((state) => state.models.modelos);
   const pendentes = anamnesesList.filter((anamnese) => anamnese.status === 1);
-  const respondidas = anamnesesList.filter((anamnese) => anamnese.status === 2)
+  const respondidas = anamnesesList.filter((anamnese) => anamnese.status === 2);
+  const [perguntas, setPerguntas] = useState("");
+  const [showAddQuestion, setShowAddQuestion] = useState(false);
+const [novaPergunta, setNovaPergunta] = useState('');
 
-  const handleRemoveAnamnese = (id) => {
-    dispatch(removeAnamnese(id));
+
+
+
+
+  const handleDelete = (id) => {
+    dispatch(removeModelo(id));
   };
 
-  const handleOpenModal = (form) => {
-    setSelectedForm(form);
+  const handleRemoveQuestion = (modeloId, questionId) => {
+    dispatch(deletePergunta({ modeloId, questionId }));
+  };
+
+  const handleOpenModal = (modelo) => {
+    setSelectedModelo(modelo);
+    setPerguntas(modelo.perguntas); // 
     setIsModalOpen(true);
+  };
+
+const handleEditChange = (e, perguntaId) => {
+  const { value } = e.target;
+
+  if (e.target.name === 'nome') {
+    // Atualiza o nome do modelo
+    setSelectedModelo((prevModelo) => ({
+      ...prevModelo,
+      nome: value,
+    }));
+  } else {
+    // Atualiza uma pergunta específica
+    setSelectedModelo((prevModelo) => {
+      if (!prevModelo) return null; // Caso não haja modelo selecionado
+
+      const updatedPerguntas = prevModelo.perguntas.map((pergunta) =>
+        pergunta.id === perguntaId ? { ...pergunta, pergunta: value } : pergunta
+      );
+
+      return {
+        ...prevModelo,
+        perguntas: updatedPerguntas,
+      };
+    });
+  }
+};
+
+const handleAddQuestion = () => {
+  setShowAddQuestion(true);
+  if (novaPergunta.trim() && selectedModelo?.id) {
+    dispatch(addPergunta({ modeloId: selectedModelo.id, novaPergunta }));
+    setNovaPergunta(""); 
+  } 
+};
+
+  const handleSaveChanges = () => {
+    dispatch(
+      editModelo({
+        id: selectedModelo.id,
+        updatedNome: selectedModelo.nome,
+        updatedPerguntas: perguntas,
+      })
+    );
+    handleCloseModal();
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setSelectedForm(null);
   };
 
-
-  // const renderList = () => {
-  //   if (activeView === 'modelos') {
-  //     return (
-  //       <>
-  //        <ul>
-  //         {models.map((model) => (
-  //           <li key={model.id} className="flex justify-between">
-  //             <button
-  //               className="text-blue-500 hover:underline"
-  //               onClick={() => handleOpenModal(model)}
-  //             >
-  //               {model.nome}
-  //             </button>
-  //           </li>
-  //         ))}
-  //       </ul>
-  //       {isModalOpen && selectedForm && (
-  //       <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-  //         <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-lg">
-  //           <h2 className="text-xl font-bold mb-4">{selectedForm.nome}</h2>
-  //           <form>
-  //             <RenderForm />
-  //             <button
-  //               type="button"
-  //               className="mt-4 bg-red-500 text-white p-2 rounded"
-  //               onClick={handleCloseModal}
-  //             >
-  //               Fechar
-  //             </button>
-  //           </form>
-  //         </div>
-  //       </div>
-  //     )}
-  //       </>
-
-  //     );
-  //   }
-
-  //   if (activeView === 'pendentes') {
-  //     return (
-  //       <ul>
-  //         {pendentes.map((anamnese) => (
-  //           <li key={anamnese.id} className="flex flex-col">
-  //             <span>{anamnese.modelName}</span>
-  //             <span>{anamnese.studentName}</span>
-  //             <button onClick={() => navigate(`/editform/${anamnese.id}`)}>Editar</button>
-  //             <button onClick={() => handleRemoveAnamnese(anamnese.id)}>Excluir</button>
-  //           </li>
-  //         ))}
-  //       </ul>
-  //     );
-  //   }
-
-  //   if (activeView === 'respondidas') {
-  //     return (
-  //       <div>
-  //         <p>Você ainda não tem nenhuma anamnese respondida</p>
-  //       </div>
-  //     );
-  //   }
-  // };
-
+  useEffect(() => {
+    const updatedModelo = modelos.find((modelo) => modelo.id === selectedModelo?.id);
+    if (updatedModelo) {
+      setSelectedModelo(updatedModelo);
+      setPerguntas(updatedModelo.perguntas); // Atualiza as perguntas no estado ao reabrir o modal
+    }
+  }, [modelos, selectedModelo?.id]);
 
   return (
     <>
@@ -112,42 +114,115 @@ export const Anamneses = () => {
             <button onClick={() => navigate('/modelform')}>Criar Modelo</button>
           </div>
 
-          {
-            activeView === "modelos" && <>
-              <ul>
-                {modelos.map((modelo) => (
-                  <li key={modelo.id}>
-                    <p>{modelo.nome}</p>
+          {activeView === 'modelos' && (
+            <ul>
+              {modelos.map((modelo) => (
+                <div key={modelo.id} className="flex flex-row">
+                  <li>
+                    <i className="fa-regular fa-paper-plane mr-2"></i>
+                    <p onClick={() => handleOpenModal(modelo)}>{modelo.nome}</p>
                   </li>
-                ))}
-                {/* map de modelos */}
-                {/* map com os modelos  */}
-                {/* <COmponente moldelo={modelo}/> */}
-                {/* componente que ira receber uma variavel modelo como props, com o nome do modelo, que vai ser um botão, e vai ter um modal, com o controle do estado (show, setShow), dai dentro do modal tu vai fazer um map das perguntas */}
-              </ul>
-            </>
-          }
-          {
-            activeView === "pendentes" && <>        
-              <ul>
-                {pendentes.map((anamnese) => (
-                  <li key={anamnese.id} className="flex flex-col">
-                    <span>{anamnese.name}</span>
-                    <span>{anamnese.aluno}</span>
-                    <button onClick={() => navigate(`/editform/${anamnese.id}`)}>Editar</button>
-                    <button onClick={() => handleRemoveAnamnese(anamnese.id)}>Excluir</button>
-                  </li>
-                ))}
-              </ul>
-            </>
-          }
-          {
-            activeView === "respondidas" && <>
+                  <button onClick={() => handleDelete(modelo.id)} className="text-red-500 ml-4">
+                    Excluir
+                  </button>
+                </div>
+              ))}
+            </ul>
+          )}
+
+          {activeView === 'pendentes' && (
+            <ul>
+              {pendentes.map((anamnese) => (
+                <AnamnesesPendentes key={anamnese.id} anamnese={anamnese} />
+              ))}
+            </ul>
+          )}
+
+          {activeView === 'respondidas' &&
+            (respondidas.length === 0 ? (
               <h3>Você ainda não tem nenhuma anamnese respondida</h3>
-            </>
-          }
+            ) : (
+              <ul>
+                {respondidas.map((anamnese) => (
+                  <AnamnesesRespondidas key={anamnese.id} anamnese={anamnese} />
+                ))}
+              </ul>
+            ))}
         </div>
       </div>
+
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <div className="p-5">
+            <h3>{selectedModelo?.nome}</h3>
+            <div>
+              <p>Nome da anamnese:</p>
+              {selectedModelo?.id === 1 ? (
+                <span>{selectedModelo?.nome}</span>
+              ) : (
+                <input
+                  type="text"
+                  name="nome"
+                  value={selectedModelo?.nome || ''}
+                  onChange={handleEditChange}
+                />
+              )}
+            </div>
+            <div>
+              <ul>
+                {selectedModelo.perguntas.map((pergunta, index) => (
+                  <li key={index}>
+                    <p>Pergunta:</p>
+                    {selectedModelo?.id === 1 ?
+                      <span>{pergunta.pergunta}</span>
+                      :
+                      <>
+                        <input
+                          type="text"
+                          name={`pergunta_${pergunta.id}`} 
+                          value={pergunta.pergunta || ''}
+                          onChange={(e) => handleEditChange(e, pergunta.id)} />
+
+                        <button onClick={() => handleRemoveQuestion(selectedModelo.id, pergunta.id)}>Excluir</button>
+                      </>
+                    }
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {selectedModelo?.id !== 1 && (
+        <>
+ <div>
+  {showAddQuestion && (
+    <div className="relative mb-4">
+      <input
+        type="text"
+        value={novaPergunta}
+        onChange={(e) => setNovaPergunta(e.target.value)}
+        placeholder="Digite a nova pergunta"
+        className="border p-2 rounded mb-2 w-full"
+      />
+    </div>
+  )}
+  <button
+    onClick={handleAddQuestion}
+    className="mt-4 bg-green-500 text-white p-2 rounded"
+  >
+    Adicionar Pergunta
+  </button>
+</div>
+          
+       
+        </>
+      )}
+            {selectedModelo?.id !== 1 && (
+              <button onClick={handleSaveChanges} className="mt-4 bg-blue-500 text-white p-2 rounded">
+                Salvar
+              </button>
+            )}
+          </div>
+        </Modal>
+      )}
     </>
   );
 };

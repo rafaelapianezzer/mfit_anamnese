@@ -1,59 +1,61 @@
-
-
-export const addAnamnese = (anamnese) => ({
-  type: 'ADD_ANAMNESE',
-  payload: {
-    ...anamnese,
-    status: 1,
-  },
-});
-
-export const removeAnamnese = (id) => ({
-  type: 'REMOVE_ANAMNESE',
-  payload: id,
-});
-
-export const updateAnamneseStatus = (id, status) => ({
-  type: 'UPDATE_ANAMNESE_STATUS',
-  payload: { id, status },
-});
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   anamnesesList: [],
 };
 
-const anamnesesReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'ADD_ANAMNESE':
-      return {
-        ...state,
-        anamnesesList: [
-          ...state.anamnesesList,
-          action.payload, 
-        ],
-      };
-    case 'REMOVE_ANAMNESE':
-      return {
-        ...state,
-        anamnesesList: state.anamnesesList.filter(
-          (anamnese) => anamnese.id !== action.payload
-        ),
-      };
-    case 'UPDATE_ANAMNESE_STATUS': 
-      return {
-        ...state,
-        anamnesesList: state.anamnesesList.map((anamnese) =>
-          anamnese.id === action.payload.id
-            ? { ...anamnese, status: action.payload.status }
-            : anamnese
-        ),
-      };
-    default:
-      return state;
-  }
-};
+const anamnesesSlice = createSlice({
+  name: 'anamneses',
+  initialState,
+  reducers: {
+    addAnamnese: (state, action) => {
+      state.anamnesesList.push({ ...action.payload, status: 1 });
+    },
+    
+    removeAnamnese: (state, action) => {
+      state.anamnesesList = state.anamnesesList.filter(
+        (anamnese) => anamnese.id !== action.payload
+      );
+    },
 
-export default anamnesesReducer;
+    updateAnamneseStatus: (state, action) => {
+      const { id, status } = action.payload;
+      const anamnese = state.anamnesesList.find((anamnese) => anamnese.id === id);
+      if (anamnese) {
+        anamnese.status = status;
+      }
+    },
+
+    saveRespostas: (state, action) => {
+      const { id, respostas } = action.payload;
+      const anamnese = state.anamnesesList.find((anamnese) => anamnese.id === id);
+      if (anamnese) {
+        anamnese.perguntas = respostas; 
+      }
+    },
+
+    hasPendingAnamnese(state) {
+      return state.anamnesesList.some(anamnese => anamnese.status === 1);
+    },
+
+    hasRespondedAnamnese(state) {
+      return state.anamnesesList.some(anamnese => anamnese.status === 2);
+    },
+  },
+});
+
+export const selectHasPendingAnamnese = (state) => state.anamneses.anamnesesList.some(anamnese => anamnese.status === 1);
+
+export const selectHasRespondedAnamnese = (state) => state.anamneses.anamnesesList.some(anamnese => anamnese.status === 2);
+
+export const {
+  addAnamnese,
+  removeAnamnese,
+  updateAnamneseStatus,
+  saveRespostas,
+  hasPendingAnamnese,
+  hasRespondedAnamnese
+} = anamnesesSlice.actions;
 
 
-
+export default anamnesesSlice.reducer;

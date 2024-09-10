@@ -85,7 +85,3 @@ export const UserActions = () => {
 };
 
 
-//reduz persist
-// adiciona aluno
-// incrementa em numero alunos
-// clica em alunos e abre outro modal com a relacao de alunos ativos 
