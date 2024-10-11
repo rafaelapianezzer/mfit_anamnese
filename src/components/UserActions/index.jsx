@@ -27,10 +27,11 @@ export const UserActions = () => {
 
 
   return (
-    <div className='flex justify-center max-w-2md  mx-11 rounded-lg'>
-      <div className='bg-white rounded flex flex-col container p-5'>
+   <div className='bg-gray-100 sm:relative sm:z-0 sm:-mt-10 sm:p-8'>
+     <div className='flex justify-center max-w-2md  mx-11 rounded-lg'>
+      <div className='bg-white rounded flex flex-col container p-5 w-96'>
         <div className=''>
-          <div className='flex justify-between'>
+          <div className='flex justify-between  '>
             <h3>Alunos</h3>
             <button
               onClick={() => handleOpenModal(null)}
@@ -44,7 +45,7 @@ export const UserActions = () => {
               <input
             type="text"
             placeholder="Procurar"
-            className="my-4 p-2 border rounded w-full"
+            className="my-4 p-2 border rounded w-full shadow-sm focus:outline-none focus:shadow-md text-sm"
             value={filter}
             onChange={(ev) => setFilter(ev.target.value)}
           />
@@ -81,6 +82,7 @@ export const UserActions = () => {
         </div>
       </div>
     </div>
+   </div>
   );
 };
 

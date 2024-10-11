@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +9,7 @@ import { FormUserActions } from '../FormUserActions';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { addAnamnese } from '../../store/anamneses/anamnesesReducer';
+
 
 export const Cards = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ export const Cards = () => {
     if (selectedStudent && selectedModel) {
       console.log(selectedModel)
 
-      const model = models.find(m=> m.id === selectedModel.value)
+      const model = models.find(m => m.id === selectedModel.value)
       const newAnamnese = {
         id: Date.now(),
         aluno: selectedStudent.label,
@@ -60,62 +61,72 @@ export const Cards = () => {
     }
   };
 
+  useEffect(() => {
+    if (isModalOpen) {
+      if (students.length > 0) {
+        navigate('/clientPage', { state: { students } });
+        setModalOpen(false);
+      } else {
+        setModalOpen(true);
+      }
+    }
+  }, [isModalOpen, students, navigate]);
+
   return (
     <>
-     <div className='flex flex-col items-center' >
-     <div className='flex justify-center'>
-        <img src={banner} alt='gif MFIT Personal' className='px-4 py-1'></img>
-      </div>
+      <div className='flex flex-col items-center' >
+        <div className='flex justify-center'>
+          <img src={banner} alt='gif MFIT Personal' className='px-4 py-1'></img>
+        </div>
 
-      <div className=' flex flex-row  py-30 justify-center gap-5 p-3  '>
-        <span
+        <div className=' flex flex-row  py-30 justify-center gap-5 p-3  '>
+          <span
 
-          className='flex bg-white p-5 rounded-lg h-40 cursor-pointer  min-w-52'
-          onClick={() => handleOpenModal()}
-        >
-          <div className='flex flex-col justify-between w-full'>
-            <div className='flex justify-center'>
-              <div className='bg-blue-custom rounded-full w-12 h-12 flex items-center justify-center'>
-                <FontAwesomeIcon icon={faUsers} className="text-white" />
+            className='flex bg-white p-5 rounded-lg h-40 cursor-pointer  min-w-52'
+            onClick={() => handleOpenModal()}
+          >
+            <div className='flex flex-col justify-between w-full'>
+              <div className='flex justify-center'>
+                <div className='bg-blue-custom rounded-full w-12 h-12 flex items-center justify-center'>
+                  <FontAwesomeIcon icon={faUsers} className="text-white" />
+                </div>
+              </div>
+
+              <div className='text-left'>
+                <h5 className="text-slate-500">ALUNOS</h5>
+                <p className='text-sm'>{students.length}</p>
               </div>
             </div>
+          </span>
 
-            <div className='text-left'>
-              <h5 className="text-slate-500">ALUNOS</h5>
-              <p className='text-sm'>{students.length}</p>
-            </div>
-          </div>
-        </span>
-
-        <span
-          className='flex bg-white p-5 rounded-lg h-40 w-full max-w-xs md:max-w-sm lg:max-w-md min-w-52'
-          onClick={handleOpenAnamnesesModal}
-        >
-          <div className='flex flex-col justify-between w-full'>
-            <div className='flex justify-center'>
-              <div className='bg-blue-custom rounded-full w-12 h-12 flex items-center justify-center'>
-                <FontAwesomeIcon icon={faUsers} className="text-white" />
+          <span
+            className='flex bg-white p-5 rounded-lg h-40 w-full max-w-xs md:max-w-sm lg:max-w-md min-w-52'
+            onClick={handleOpenAnamnesesModal}
+          >
+            <div className='flex flex-col justify-between w-full'>
+              <div className='flex justify-center'>
+                <div className='bg-blue-custom rounded-full w-12 h-12 flex items-center justify-center'>
+                  <FontAwesomeIcon icon={faUsers} className="text-white" />
+                </div>
+              </div>
+              <div className='text-left'>
+                <h5 className='text-slate-500'>ANAMNESES</h5>
+                <p className='text-sm'>{anamnesesList.length}</p>
               </div>
             </div>
-            <div className='text-left'>
-              <h5 className='text-slate-500'>ANAMNESES</h5>
-              <p className='text-sm'>{anamnesesList.length}</p>
-            </div>
+          </span>
+        </div>
+
+        <div className='bg-white rounded-lg flex my-6 items-center px-4 block sm:hidden relative z-10 w-10/12'>
+          <div className=''>
+            <img src={logoInsta} alt='logo do Instagram' className='max-w-xs max-h-12'></img>
           </div>
-        </span>
-      </div>
-
-      <div className='bg-white rounded-lg flex my-6 items-center px-4 block sm:hidden '>
-        <div className=''>
-          <img src={logoInsta} alt='logo do Instagram' className='max-w-xs max-h-12'></img>
-        </div>
-        <div className='p-4 '>
-          <p className='text-purple-950'>Siga a MFIT no Instagram</p>
-          <p className='text-slate-500'>E não perca nenhuma novidade</p>
+          <div className='p-4 '>
+            <p className='text-purple-950'>Siga a MFIT no Instagram</p>
+            <p className='text-slate-500'>E não perca nenhuma novidade</p>
+          </div>
         </div>
       </div>
-     </div>
-
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           {selectedUser ? (
@@ -124,30 +135,6 @@ export const Cards = () => {
               onClose={handleCloseModal}
               isEdit={true}
             />
-          ) : students.length > 0 ? (
-            <div className=''>
-              <div className="flex justify-between items-center">
-                <button onClick={handleCloseModal}>Voltar</button>
-                <h6>Seus Alunos</h6>
-              </div>
-              <div>
-                <h3>Alunos Ativos</h3>
-                <input type='text' placeholder='Procurar' className="my-4 p-2 border rounded w-full"></input>
-                <ul>
-                  {students.map((student, index) => (
-                    <li key={index} className="flex items-center space-x-4">
-                      {student.nome} {student.sobrenome}
-                      <button
-                        onClick={() => handleOpenModal(student)}
-                        className="text-blue-custom px-3 py-1 rounded ml-auto"
-                      >
-                        <i className='fa-regular fa-pencil'></i>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
           ) : (
             <FormUserActions
               user={null}
@@ -158,14 +145,23 @@ export const Cards = () => {
         </Modal>
       )}
 
-{isAnamnesesModalOpen && (
+      {isAnamnesesModalOpen && (
         <Modal isOpen={isAnamnesesModalOpen} onClose={handleCloseAnamnesesModal}>
-          <div>
-            <h6>Anamneses</h6>
-            <button onClick={() => navigate('/anamneses')}>Ver todas as anamneses</button>
-            <div className='p-5'>
-              <h3>Envie uma anamnese para um aluno</h3>
-              <p>Anamnese</p>
+          <div className='flex flex-col p-6 bg-white-custom rounded'>
+            <div className='flex justify-between items-center'>
+              <h6 className='text-[18px] text-gray-custom '>Anamneses</h6>
+              <button onClick={handleCloseAnamnesesModal} className='text-gray-300'>x</button>
+            </div>
+            <button
+              onClick={() => navigate('/anamneses')}
+              className='text-left px-10 py-5 rounded bg-gray-secundary my-5 text-sm text-gray-custom
+             border border-transparent hover:border-gray-200 hover:bg-white hover:shadow-sm transition duration-100'
+            >
+              Ver todas as anamneses
+            </button>
+            <div className=''>
+              <h3 className='text-gray-custom my-3'>Envie uma anamnese para um aluno</h3>
+              <p className='text-gray-custom text-sm'>Anamnese</p>
               <Select
                 value={selectedModel}
                 onChange={(selectedOption) => setSelectedModel(selectedOption)}
@@ -173,10 +169,11 @@ export const Cards = () => {
                   value: model.id,
                   label: model.nome,
                 }))}
-                className='my-4'
+                placeholder=''
+                className='my-2 mb-8'
               />
 
-              <p>Aluno</p>
+              <p className='text-gray-custom text-sm'>Aluno</p>
               <Select
                 value={selectedStudent}
                 onChange={(selectedOption) => setSelectedStudent(selectedOption)}
@@ -184,19 +181,20 @@ export const Cards = () => {
                   value: student.nome,
                   label: `${student.nome} ${student.sobrenome}`,
                 }))}
-                className='my-4'
+                placeholder=''
+                className='my-4 mb-8'
               />
             </div>
-            <div>
+            <div className='flex gap-3'>
               <button
-                className='text-white bg-gray-custom px-3 py-1 rounded'
+                className='text-white bg-gray-custom px-6 py-3 rounded text-sm shadow-lg'
                 onClick={handleSendAnamnese}
               >
                 Enviar
               </button>
               <button
                 onClick={handleCloseAnamnesesModal}
-                className='text-gray-custom bg-gray-50 px-3 py-1 rounded'
+                className='text-gray-custom bg-gray-secundary px-6 py-3 rounded text-sm shadow-lg'
               >
                 Fechar
               </button>

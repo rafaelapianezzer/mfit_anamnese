@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faHome, faDumbbell, faCamera, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faDumbbell, faCamera, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 export const DropdownMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -32,27 +32,37 @@ export const DropdownMenu = () => {
                 className="text-white focus:outline-none"
                 onClick={toggleMenu}
             >
-           
-               <i className="fa-regular fa-bars"></i>
+
+                <i className="fa-regular fa-bars"></i>
             </button>
 
             {isOpen && (
-                <ul className="absolute left-0 top-12 bg-gray-800 text-white shadow-lg z-50 p-4 w-64">
+                <ul className="absolute left-1 top-10 bg-gray-custom text-white shadow-lg z-50 p-4 w-72 grid grid-cols-3 rounded">
                     <li className="flex flex-col items-center mb-2">
-                        <FontAwesomeIcon icon={faHome} className="mb-1" />
-                        <a href="#link1">Início</a>
+                        <div className="bg-blue-custom rounded-full h-10 w-10 p-3 flex justify-center items-center">
+                            <FontAwesomeIcon icon={faHome} className="mb-1" />
+                        </div>
+                        <a href="#link1" className="text-[12px] p-2 text-center">Início</a>
                     </li>
-                    <li className="flex flex-col items-center mb-2">
-                        <FontAwesomeIcon icon={faDumbbell} className="mb-1" />
-                        <a href="#link2">Consultoria</a>
+
+                    <li className="flex flex-col items-center justify-items-center mb-2">
+                        <div className="bg-blue-custom rounded-full h-10 w-10 p-3 flex justify-center items-center">
+                            <FontAwesomeIcon icon={faDumbbell} className="text-white" />
+                        </div>
+                        <a href="#link2" className='text-[12px] p-2 text-center'>App para consultoria</a>
                     </li>
+
                     <li className="flex flex-col items-center mb-2">
-                        <FontAwesomeIcon icon={faCamera} className="mb-1" />
-                        <a href="#link3">Instagram</a>
+                        <div className="bg-blue-custom rounded-full h-10 w-10 p-3 flex justify-center items-center">
+                            <FontAwesomeIcon icon={faCamera} className="mb-1" />
+                        </div>
+                        <a href="#link3" className='text-[12px] p-2 text-center'>Post para Instagram</a>
                     </li>
                     <li className="flex flex-col items-center mt-4">
-                        <FontAwesomeIcon icon={faSignOutAlt} className="mb-1" />
-                        <a href="#link4">Sair</a>
+                        <div className="bg-blue-custom rounded-full h-10 w-10 p-3 flex justify-center items-center">
+                            <FontAwesomeIcon icon={faSignOutAlt} className="mb-1" />
+                        </div>
+                        <a href="#link4" className='text-[12px] p-2 text-center'>Sair</a>
                     </li>
                 </ul>
             )}

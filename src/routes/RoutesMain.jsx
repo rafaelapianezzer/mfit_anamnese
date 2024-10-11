@@ -4,6 +4,7 @@ import { Anamneses } from '../pages/AnamnesesPage';
 import { FormNewModel } from '../pages/formNewModel';
 import {AnamnesesRespondidas} from '../components/Anamneses/AnamnesesRespondidas';
 import { InitialLogin } from '../pages/loginPage/InitialLogin';
+import { ClientPage } from '../pages/ClientPage';
 
 
 export const RoutesMain = () => {
@@ -14,7 +15,7 @@ export const RoutesMain = () => {
             <Route path='/anamneses' element={<Anamneses/>}/>
             <Route path='/modelform' element={<FormNewModel/>}/>
             <Route path='/anamnesesRespondidas' element={<AnamnesesRespondidas/>}/>
-
+            <Route path='/clientPage' element={<ClientPage/>}/>
         </Routes>
     )
 }

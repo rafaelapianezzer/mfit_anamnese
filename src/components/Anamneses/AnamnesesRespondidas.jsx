@@ -21,10 +21,14 @@ export const AnamnesesRespondidas = ({ anamnese }) => {
 
   return (
     <>
-      <li key={anamnese.id} className="flex flex-col">
-        <span onClick={handleViewAnamnese}>{anamnese.nome}</span>
-        <span>{anamnese.aluno}</span>
-        <button onClick={() => handleRemoveAnamnese(anamnese.id)}>Excluir</button>
+      <li key={anamnese.id} className="flex items-center justify-between p-4 border-b border-b-[rgba(128,128,128,0.17)] ">
+        <div className='flex flex-col'>
+        <span onClick={handleViewAnamnese} className='text-gray-custom'>{anamnese.nome}</span>
+        <span className='text-gray-400 text-sm'>{anamnese.aluno}</span>
+        </div>
+        <button onClick={() => handleRemoveAnamnese(anamnese.id)}>
+        <i className="fa-light fa-trash text-white-custom bg-red-600 px-2 py-1 rounded text-xs"></i>
+        </button>
       </li>
       {open && (
         <Modal isOpen={open} onClose={handleCloseModal}>
