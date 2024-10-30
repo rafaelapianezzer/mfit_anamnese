@@ -27,15 +27,14 @@ export const UserActions = () => {
 
 
   return (
-   <div className='bg-gray-100 sm:relative sm:z-0 sm:-mt-10 sm:p-8'>
-     <div className='flex justify-center max-w-2md  mx-11 rounded-lg'>
-      <div className='bg-white rounded flex flex-col container p-5 w-96'>
-        <div className=''>
+    <div className='bg-gray-100 relative z-0  p-8 mt-20 w-screen  flex justify-center h-screen '>
+      <div className='bg-white-custom rounded-lg z-10 absolute  w-[90%] lg:w-[768px] -mt-24'>
+        <div className='flex flex-col gap-4 p-5 w-full'>
           <div className='flex justify-between  '>
-            <h3>Alunos</h3>
+            <h3 className='text-gray-custom'>Alunos</h3>
             <button
               onClick={() => handleOpenModal(null)}
-              className="text-white bg-gray-custom px-3 py-2 rounded"
+              className="text-white  bg-gray-custom px-5 shadow-lg py-2 rounded"
             >
               + Aluno
             </button>
@@ -45,13 +44,13 @@ export const UserActions = () => {
               <input
             type="text"
             placeholder="Procurar"
-            className="my-4 p-2 border rounded w-full shadow-sm focus:outline-none focus:shadow-md text-sm"
+            className="my-4 p-3 border rounded w-full shadow-sm focus:outline-none focus:shadow-md text-sm"
             value={filter}
             onChange={(ev) => setFilter(ev.target.value)}
           />
             <ul>
               {studentsFilter.map((student, index) => (
-                <li key={index} className="flex items-center space-x-4">
+                <li key={index} className="flex items-center space-x-4 my-4 border-b border-b-[rgba(128,128,128,0.17)] p-2 py-4 text-gray-custom">
                   {student.nome} {student.sobrenome}
                   <button
                     onClick={() => handleOpenModal(student)}
@@ -80,9 +79,8 @@ export const UserActions = () => {
             </Modal>
           )}
         </div>
-      </div>
     </div>
-   </div>
+  </div>
   );
 };
 

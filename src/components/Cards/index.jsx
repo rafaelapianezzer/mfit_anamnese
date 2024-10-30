@@ -78,52 +78,49 @@ export const Cards = () => {
         <div className='flex justify-center'>
           <img src={banner} alt='gif MFIT Personal' className='px-4 py-1'></img>
         </div>
-
-        <div className=' flex flex-row  py-30 justify-center gap-5 p-3  '>
-          <span
-
-            className='flex bg-white p-5 rounded-lg h-40 cursor-pointer  min-w-52'
+        <div className=' flex flex-row  py-30 justify-center gap-5 p-3 w-full  md:max-w-[93%] '>
+          <div
+            className='flex bg-white-custom p-5 rounded-lg cursor-pointer  min-w-xs max-w-sm w-full'
             onClick={() => handleOpenModal()}
           >
             <div className='flex flex-col justify-between w-full'>
-              <div className='flex justify-center'>
+              <div className='flex md:justify-end justify-center'>
                 <div className='bg-blue-custom rounded-full w-12 h-12 flex items-center justify-center'>
                   <FontAwesomeIcon icon={faUsers} className="text-white" />
                 </div>
               </div>
-
-              <div className='text-left'>
-                <h5 className="text-slate-500">ALUNOS</h5>
-                <p className='text-sm'>{students.length}</p>
+              <div className='text-left flex flex-col gap-1'>
+                <h5 className="text-slate-500 text-sm">ALUNOS</h5>
+                <p className='text-sm text-gray-custom'>{students.length}</p>
               </div>
             </div>
-          </span>
-
-          <span
-            className='flex bg-white p-5 rounded-lg h-40 w-full max-w-xs md:max-w-sm lg:max-w-md min-w-52'
+          </div>
+          <div
+            className='flex bg-white p-5 rounded-lg h-40  max-w-sm w-full min-w-xs '
             onClick={handleOpenAnamnesesModal}
           >
             <div className='flex flex-col justify-between w-full'>
-              <div className='flex justify-center'>
+              <div className='flex md:justify-end justify-center'>
                 <div className='bg-blue-custom rounded-full w-12 h-12 flex items-center justify-center'>
                   <FontAwesomeIcon icon={faUsers} className="text-white" />
                 </div>
               </div>
-              <div className='text-left'>
-                <h5 className='text-slate-500'>ANAMNESES</h5>
-                <p className='text-sm'>{anamnesesList.length}</p>
+              <div className='text-left flex flex-col gap-1'>
+                <h5 className='text-slate-500 text-sm'>ANAMNESES</h5>
+                <p className='text-sm text-gray-custom'>{anamnesesList.length}</p>
               </div>
             </div>
-          </span>
-        </div>
-
-        <div className='bg-white rounded-lg flex my-6 items-center px-4 block sm:hidden relative z-10 w-10/12'>
-          <div className=''>
-            <img src={logoInsta} alt='logo do Instagram' className='max-w-xs max-h-12'></img>
           </div>
-          <div className='p-4 '>
-            <p className='text-purple-950'>Siga a MFIT no Instagram</p>
-            <p className='text-slate-500'>E não perca nenhuma novidade</p>
+        </div>
+        <div className='bg-white rounded-lg grid my-5 h-20 items-center px-4 sm:hidden relative z-0 w-11/12'>
+          <div className='flex p-3 items-center absolute'>
+            <div className=''>
+              <img src={logoInsta} alt='logo do Instagram' className='max-w-xs max-h-12'></img>
+            </div>
+            <div className='p-4 '>
+              <p className='text-gray-custom'>Siga a MFIT no Instagram</p>
+              <p className='text-slate-500 text-sm'>E não perca nenhuma novidade</p>
+            </div>
           </div>
         </div>
       </div>
