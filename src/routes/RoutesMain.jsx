@@ -5,17 +5,19 @@ import { FormNewModel } from '../pages/formNewModel';
 import {AnamnesesRespondidas} from '../components/Anamneses/AnamnesesRespondidas';
 import { InitialLogin } from '../pages/loginPage/InitialLogin';
 import { ClientPage } from '../pages/ClientPage';
+import { LogOut } from '../pages/LogOut';
 
 
 export const RoutesMain = () => {
     return (
         <Routes>
-            <Route path='/login' element={<InitialLogin/>}/>
-            <Route path='/' element={<HomePage/>}/>
+            <Route path='/' element={<InitialLogin/>}/>
+            <Route path='/homepage' element={<HomePage/>}/>
             <Route path='/anamneses' element={<Anamneses/>}/>
             <Route path='/modelform' element={<FormNewModel/>}/>
             <Route path='/anamnesesRespondidas' element={<AnamnesesRespondidas/>}/>
             <Route path='/clientPage' element={<ClientPage/>}/>
+            <Route path='/logout' element={<LogOut/>}/>
         </Routes>
     )
 }

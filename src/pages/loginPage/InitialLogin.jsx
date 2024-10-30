@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo-mfit-azul.png';
 import fotoLogin from '../../assets/fotologin.jpeg';
 import logoGoogle from '../../assets/play_store.png';
@@ -6,13 +8,25 @@ import logoApple from '../../assets/apple.png';
 
 
 export const InitialLogin = () => {
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const navigate = useNavigate();
+
+    const handleLogin = () => {
+        if (email && senha) {
+            navigate('/homepage');
+        } else {
+            alert("Por favor, preencha o e-mail e a senha.");
+        }
+    };
+
     return (
         <div className='flex'>
             <div className='flex flex-col w-full hidden md:block '>
                 <img
                     src={fotoLogin}
                     alt='Foto de uma mulher na academia'
-                    className='object-cover w-full h-full max-h-[61rem] rounded-lg shadow-lg relative'
+                    className='object-cover w-full h-full rounded-lg shadow-lg relative'
                 />
                 <div className='fixed bottom-0 left-0 p-2'>
                     <p className='text-white'>Use a MFIT também no seu telefone</p>
@@ -28,19 +42,36 @@ export const InitialLogin = () => {
                     <h3 className='font-bold'>Professor</h3>
                 </div>
                 <div className="flex flex-col items-center justify-center gap-4">
-                    <input type="text" placeholder="E-mail" className="py-2 px-4 w-80 h-10 border border-gray-300" />
-                    <input type="text" placeholder="Senha" className="py-2 px-4 w-80 h-10 border border-gray-300" />
+                    <input 
+                        type="text" 
+                        placeholder="E-mail" 
+                        value={email} 
+                        onChange={(e) => setEmail(e.target.value)} 
+                        className="py-2 px-4 w-80 h-10 border border-gray-300" 
+                    />
+                    <input 
+                        type="password" 
+                        placeholder="Senha" 
+                        value={senha} 
+                        onChange={(e) => setSenha(e.target.value)} 
+                        className="py-2 px-4 w-80 h-10 border border-gray-300" 
+                    />
                     <p>Esqueceu sua senha? <a href="#" className="text-blue-500">Clique aqui</a></p>
                 </div>
                 <div className='flex flex-col gap-3'>
-                    <button className='bg-gray-custom text-white px-20 py-2 border-2 border-gray-custom rounded'>Entrar</button>
-                    <button className='bg-white text-gray-custom px-20 py-2 border-gray-custom border-2 rounded'>Não tenho uma conta</button>
+                    <button 
+                        onClick={handleLogin} 
+                        className='bg-gray-custom text-white px-20 py-2 border-2 border-gray-custom rounded'>
+                        Entrar
+                    </button>
+                    <button className='bg-white text-gray-custom px-20 py-2 border-gray-custom border-2 rounded'>
+                        Não tenho uma conta
+                    </button>
                     <div className='flex justify-center'>
                         <a href='https://termosdeuso.mfitpersonal.com.br/'>Termos de Serviço</a>
                     </div>
                 </div>
-
             </div>
         </div>
-    )
-}
+    );
+};

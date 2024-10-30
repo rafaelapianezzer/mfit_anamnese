@@ -15,7 +15,7 @@ export const ClientPage = () => {
   const navigate = useNavigate();
 
   const handleHomePage = () => {
-    navigate('/');
+    navigate('/homepage');
   }
 
   const handleOpenModal = (user) => {
