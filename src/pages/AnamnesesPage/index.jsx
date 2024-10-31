@@ -105,21 +105,21 @@ export const Anamneses = ({ modeloId }) => {
             <button
               onClick={() => setActiveView('modelos')}
               className={`w-full rounded p-3 text-sm shadow-lg ${activeView === 'modelos' ? 'bg-blue-custom text-white-custom' : 'bg-white text-blue-custom'
-                }`}
+                } transform, transition-all, duration-300`}
             >
               Modelos
             </button>
             <button
               onClick={() => setActiveView('pendentes')}
               className={`w-full rounded p-3 text-sm shadow-lg ${activeView === 'pendentes' ? 'bg-blue-custom text-white-custom' : 'bg-white text-blue-custom'
-                }`}
+                } transform, transition-all, duration-300`}
             >
               Pendentes
             </button>
             <button
               onClick={() => setActiveView('respondidas')}
               className={`w-full rounded p-3 text-sm shadow-lg ${activeView === 'respondidas' ? 'bg-blue-custom text-white-custom' : 'bg-white text-blue-custom'
-                }`}
+                } transform, transition-all, duration-300`}
             >
               Respondidas
             </button>
@@ -157,7 +157,7 @@ export const Anamneses = ({ modeloId }) => {
           )}
           {activeView === 'respondidas' &&
             (respondidas.length === 0 ? (
-              <h3>Você ainda não tem nenhuma anamnese respondida</h3>
+              <h3 className='text-center text-gray-custom p-6'>Você ainda não tem nenhuma anamnese respondida</h3>
             ) : (
               <ul>
                 {respondidas.map((anamnese) => (

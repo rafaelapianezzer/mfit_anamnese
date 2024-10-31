@@ -5,11 +5,11 @@ import fotoLogin from '../../assets/fotologin.jpeg';
 import logoGoogle from '../../assets/play_store.png';
 import logoApple from '../../assets/apple.png';
 
-
-
 export const InitialLogin = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [isEmailValid, setIsEmailValid] = useState(true);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false); 
     const navigate = useNavigate();
 
     const handleLogin = () => {
@@ -18,6 +18,18 @@ export const InitialLogin = () => {
         } else {
             alert("Por favor, preencha o e-mail e a senha.");
         }
+    };
+
+    const handleEmailChange = (e) => {
+        const value = e.target.value;
+        setEmail(value);
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setIsEmailValid(emailRegex.test(value));
+    };
+
+    const togglePasswordVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible); 
     };
 
     return (
@@ -42,25 +54,35 @@ export const InitialLogin = () => {
                     <h3 className='font-bold'>Professor</h3>
                 </div>
                 <div className="flex flex-col items-center justify-center gap-4">
-                    <input 
-                        type="text" 
-                        placeholder="E-mail" 
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
-                        className="py-2 px-4 w-80 h-10 border border-gray-300" 
+                    <input
+                        type="text"
+                        placeholder="E-mail"
+                        value={email}
+                        onChange={handleEmailChange}
+                        className={`py-2 px-4 w-80 h-10 border ${isEmailValid ? 'border-gray-300' : 'border-red-500'}`}
                     />
-                    <input 
-                        type="password" 
-                        placeholder="Senha" 
-                        value={senha} 
-                        onChange={(e) => setSenha(e.target.value)} 
-                        className="py-2 px-4 w-80 h-10 border border-gray-300" 
-                    />
+                    {!isEmailValid && <p className="text-red-500 text-sm mt-1">Por favor, insira um e-mail válido.</p>}
+                    <div className="relative w-80">
+                        <input
+                            type={isPasswordVisible ? "text" : "password"} 
+                            placeholder="Senha"
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
+                            className="py-2 px-4 h-10 border border-gray-300 w-full"
+                        />
+                        <button
+                            type="button"
+                            onClick={togglePasswordVisibility}
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600">
+                            {isPasswordVisible ? <i class="fa-regular fa-eye"></i> : <i class="fa-regular fa-eye-slash"></i> }  
+                        </button>
+                       
+                    </div>
                     <p>Esqueceu sua senha? <a href="#" className="text-blue-500">Clique aqui</a></p>
                 </div>
                 <div className='flex flex-col gap-3'>
-                    <button 
-                        onClick={handleLogin} 
+                    <button
+                        onClick={handleLogin}
                         className='bg-gray-custom text-white px-20 py-2 border-2 border-gray-custom rounded'>
                         Entrar
                     </button>
