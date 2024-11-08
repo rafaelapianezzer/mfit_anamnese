@@ -9,7 +9,7 @@ import { FormUserActions } from '../FormUserActions';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { addAnamnese } from '../../store/anamneses/anamnesesReducer';
-
+import { toast } from 'react-toastify';
 
 export const Cards = () => {
   const dispatch = useDispatch();
@@ -44,8 +44,6 @@ export const Cards = () => {
 
   const handleSendAnamnese = () => {
     if (selectedStudent && selectedModel) {
-      console.log(selectedModel)
-
       const model = models.find(m => m.id === selectedModel.value)
       const newAnamnese = {
         id: Date.now(),
@@ -54,8 +52,15 @@ export const Cards = () => {
         status: 1,
         perguntas: model.perguntas
       };
-
       dispatch(addAnamnese(newAnamnese));
+      toast.success(
+        <>
+          Tudo certo! <br />
+          <div className="text-sm">
+            Anamnese enviada para o email do seu aluno!
+          </div>
+        </>
+      );
       handleCloseAnamnesesModal();
 
     }
@@ -112,7 +117,7 @@ export const Cards = () => {
             </div>
           </div>
         </div>
-        <div className='bg-white rounded-lg grid my-5 h-20 items-center px-4 sm:hidden relative z-0 w-11/12'>
+        <a href='https://www.instagram.com/mfitpersonal/' target='_blank' className='bg-white rounded-lg grid my-5 h-20 items-center px-4 sm:hidden relative z-0 w-11/12'>
           <div className='flex p-3 items-center absolute'>
             <div className=''>
               <img src={logoInsta} alt='logo do Instagram' className='max-w-xs max-h-12'></img>
@@ -122,7 +127,7 @@ export const Cards = () => {
               <p className='text-slate-500 text-sm'>E não perca nenhuma novidade</p>
             </div>
           </div>
-        </div>
+        </a>
       </div>
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>

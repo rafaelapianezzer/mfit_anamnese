@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import AnamnesesPendentes from '../../components/Anamneses/AnamnesesPendentes';
 import { AnamnesesRespondidas } from '../../components/Anamneses/AnamnesesRespondidas';
 import { Modal } from '../../components/Modal';
+import { toast } from 'react-toastify';
 
 export const Anamneses = ({ modeloId }) => {
   const [activeView, setActiveView] = useState('modelos');
@@ -23,6 +24,14 @@ export const Anamneses = ({ modeloId }) => {
 
   const handleDelete = (id) => {
     dispatch(removeModelo(id));
+    toast.success(
+      <>
+        Tudo certo! <br />
+        <div className="text-sm">
+          O modelo foi excluído!
+        </div>
+      </>
+    );
   };
 
   const handleRemoveQuestion = (modeloId, questionId) => {

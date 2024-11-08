@@ -63,7 +63,7 @@ export const UserActions = () => {
             </ul>
             </div>
           ) : (
-            <div className='flex flex-col items-center h-36 p-3 gap-4'>
+            <div className='flex flex-col items-center h-36 p-3 gap-4 text-center'>
               <h3 className='text-purple-950'>Você não tem nenhum aluno ativo</h3>
               <p className='text-gray-custom'>Cadastre o seu primeiro aluno e comece a usar o app!</p>
               <button onClick={() => handleOpenModal(null)} className='text-white bg-gray-custom px-3 py-3 rounded'>Cadastrar Aluno</button>

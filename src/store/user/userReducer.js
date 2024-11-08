@@ -1,9 +1,10 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export const slice = createSlice({
     name: 'user',
     initialState: {
         students: [],
+        personalTrainers: [],  
         anamneses: {},
     },
     reducers: {
@@ -16,20 +17,35 @@ export const slice = createSlice({
                 state.anamneses[action.payload.nome] = 0;
             }
         },
+        addPersonalTrainer: (state, action) => {  
+            const existingTrainerIndex = state.personalTrainers.findIndex(trainer => trainer.email === action.payload.email);
+            if (existingTrainerIndex !== -1) {
+                state.personalTrainers[existingTrainerIndex] = action.payload;
+            } else {
+                state.personalTrainers.push(action.payload);
+            }
+        },
         incrementAnamneses: (state, action) => {
-            const {nome} = action.payload;
+            const { nome } = action.payload;
             if (state.anamneses[nome] !== undefined) {
                 state.anamneses[nome] += 1;
             }
         },
-
+        updateUser: (state, action) => {
+            const index = state.students.findIndex(user => user.email === action.payload.email);
+            if (index !== -1) {
+                state.students[index] = action.payload; // Atualiza o usuário existente
+            }
+        },
         deleteUser: (state, action) => {
             state.students = state.students.filter(student => student.email !== action.payload);
-            console.log(state.students)
+        },
+        deletePersonalTrainer: (state, action) => {  
+            state.personalTrainers = state.personalTrainers.filter(trainer => trainer.email !== action.payload);
         },
     },
 });
 
-export const {addUser, incrementAnamneses, deleteUser} = slice.actions;
+export const { addUser, addPersonalTrainer, incrementAnamneses, updateUser, deleteUser, deletePersonalTrainer } = slice.actions;
 
 export const userReducer = slice.reducer;

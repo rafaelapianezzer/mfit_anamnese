@@ -1,7 +1,8 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { addUser, deleteUser } from "../../store/user/userReducer";
+import { addUser, deleteUser, updateUser } from "../../store/user/userReducer";
+import { toast } from 'react-toastify';
 
 export const FormUserActions = ({ user, onClose, isEdit }) => {
   const dispatch = useDispatch();
@@ -24,7 +25,27 @@ export const FormUserActions = ({ user, onClose, isEdit }) => {
       sexo: Yup.string().required('Preencha este campo.'),
     }),
     onSubmit: (values) => {
-      dispatch(addUser(values));
+      if (isEdit) {
+        dispatch(updateUser(values));
+        toast.info(
+          <>
+            Tudo certo! <br />
+            <div className="text-sm">
+              Dados atualizados com sucesso
+            </div>
+          </>
+        );
+      } else {
+        dispatch(addUser(values));
+        toast.success(
+          <>
+            Seu aluno foi criado com sucesso! <br />
+            <div className="text-sm">
+              Você já pode enviar uma anamnese para ele responder!
+            </div>
+          </>
+        );
+      }
       onClose();
     }
   });
@@ -32,13 +53,21 @@ export const FormUserActions = ({ user, onClose, isEdit }) => {
   const handleDelete = () => {
     if (user?.email) {
       dispatch(deleteUser(user.email));
+      toast.success(
+        <>
+        Tudo certo! <br />
+           <div className='text-sm'>
+           Aluno excluído com sucesso
+           </div>
+        </>   
+       );
       onClose()
     }
   };
 
   return (
     <div className="inset-0 z-50 flex items-center flex-col justify-center ">
-      <form onSubmit={formik.handleSubmit} className="max-w-md mx-auto p-4 bg-white shadow-md rounded w-full">
+      <form onSubmit={formik.handleSubmit} className="max-w-md mx-auto p-4 bg-white-custom shadow-md rounded w-full">
         <div className='flex flex-row justify-between w-full mb-4'>
           <h5 className='text-gray-custom'>{isEdit ? 'Editar Aluno' : 'Novo Aluno'}</h5>
           <button onClick={onClose} className="text-gray-400">x</button>
@@ -49,7 +78,7 @@ export const FormUserActions = ({ user, onClose, isEdit }) => {
             <button
               type="button"
               onClick={handleDelete}
-              className="bg-red-500 text-red-700 p-2 rounded"
+              className=" text-red-400 py-4 text-sm"
             >
               Excluir
             </button>
@@ -175,7 +204,6 @@ export const FormUserActions = ({ user, onClose, isEdit }) => {
             Fechar
           </button>
         </div>
-
       </form>
     </div>
   );

@@ -4,18 +4,26 @@ import { useDispatch } from 'react-redux';
 import { addModelo } from '../../store/models/modelsReducer';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../../components/Header';
+import { toast } from 'react-toastify';
 
 export const FormNewModel = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [modelName, setModelName] = useState('');
     const [questions, setQuestions] = useState(['']);
+    
 
     const handleAddQuestion = () => {
         setQuestions([...questions, '']);
     };
 
     const handleSaveModel = () => {
+
+        if (!modelName || questions.some(q => !q.trim())) {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }
+
         const newModel = {
             id: uuidv4(),
             nome: modelName,
@@ -23,9 +31,17 @@ export const FormNewModel = () => {
             perguntas: questions.map((q) => ({ id: uuidv4(), pergunta: q, resposta: "" })),
         };
         dispatch(addModelo(newModel));
+        toast.success(
+            <>
+              Tudo certo! <br />
+              <div className="text-sm">
+                Seu modelo foi criado com sucesso!
+              </div>
+            </>
+          );
         setModelName('');
         setQuestions(['']);
-        navigate('/');
+        navigate('/homepage');
     };
 
     return (

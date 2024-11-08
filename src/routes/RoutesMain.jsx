@@ -6,6 +6,7 @@ import {AnamnesesRespondidas} from '../components/Anamneses/AnamnesesRespondidas
 import { InitialLogin } from '../pages/loginPage/InitialLogin';
 import { ClientPage } from '../pages/ClientPage';
 import { LogOut } from '../pages/LogOut';
+import { NewUser } from '../pages/NewUser';
 
 
 export const RoutesMain = () => {
@@ -18,6 +19,7 @@ export const RoutesMain = () => {
             <Route path='/anamnesesRespondidas' element={<AnamnesesRespondidas/>}/>
             <Route path='/clientPage' element={<ClientPage/>}/>
             <Route path='/logout' element={<LogOut/>}/>
+            <Route path='newUser' element={<NewUser/>}/>
         </Routes>
     )
 }
