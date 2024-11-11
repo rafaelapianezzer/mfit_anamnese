@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import logoInsta from '../../assets/logoInsta.png';
+
 import banner from '../../assets/banner3.gif';
 import { Modal } from '../Modal';
 import { FormUserActions } from '../FormUserActions';
@@ -79,7 +79,7 @@ export const Cards = () => {
 
   return (
     <>
-      <div className='flex flex-col items-center' >
+      <div className='flex flex-col items-center bg-gray-custom pb-20' >
         <div className='flex justify-center'>
           <img src={banner} alt='gif MFIT Personal' className='px-4 py-1'></img>
         </div>
@@ -101,7 +101,7 @@ export const Cards = () => {
             </div>
           </div>
           <div
-            className='flex bg-white p-5 rounded-lg h-40  max-w-sm w-full min-w-xs '
+            className='flex bg-white p-5 rounded-lg   max-w-sm w-full min-w-xs '
             onClick={handleOpenAnamnesesModal}
           >
             <div className='flex flex-col justify-between w-full'>
@@ -117,17 +117,7 @@ export const Cards = () => {
             </div>
           </div>
         </div>
-        <a href='https://www.instagram.com/mfitpersonal/' target='_blank' className='bg-white rounded-lg grid my-5 h-20 items-center px-4 sm:hidden relative z-0 w-11/12'>
-          <div className='flex p-3 items-center absolute'>
-            <div className=''>
-              <img src={logoInsta} alt='logo do Instagram' className='max-w-xs max-h-12'></img>
-            </div>
-            <div className='p-4 '>
-              <p className='text-gray-custom'>Siga a MFIT no Instagram</p>
-              <p className='text-slate-500 text-sm'>E não perca nenhuma novidade</p>
-            </div>
-          </div>
-        </a>
+       
       </div>
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>

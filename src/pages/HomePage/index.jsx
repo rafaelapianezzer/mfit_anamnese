@@ -6,7 +6,7 @@ export const HomePage = () => {
     return (
         <>
         <Header />
-     <main className="bg-gray-custom min-h-screen w-full flex flex-col items-center">
+     <main>
        <section>
          <div>
            <Cards />
