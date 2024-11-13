@@ -48,14 +48,14 @@ export const NewUser = () => {
     });
 
     return (
-        <div className="bg-gray-custom h-screen w-full flex items-center justify-center px-4">
-    <div className="bg-gray-100 w-full max-w-md p-6 flex flex-col items-center rounded-lg shadow-lg gap-6">
+        <div className="bg-gray-custom  w-full flex items-center justify-center p-4 min-h-screen overflow-auto">
+            <div className="bg-gray-100 w-full max-w-md p-6 flex flex-col items-center rounded-lg shadow-lg gap-6 h-auto  ">
                 <img
                     src={logoMfit}
                     alt="Logo Mfit"
                     className="w-32 h-32 p-2"
                 />
-                <form onSubmit={formik.handleSubmit} className="w-full flex flex-col  h-auto">
+                <form onSubmit={formik.handleSubmit} className="w-full flex flex-col  ">
                     <div className="mb-4">
                         <input
                             type="text"
@@ -179,22 +179,24 @@ export const NewUser = () => {
                             <div className="text-red-500 text-sm p-1">{formik.errors.sexo}</div>
                         )}
                     </div>
-                    <div className='flex items-center mx-auto'>
+                    <div className='flex items-center mx-auto flex-col py-3'>
                         <button type="submit" className="bg-gray-custom text-white-custom rounded-md  py-3 px-6 w-full text-sm">
                             Cadastrar
                         </button>
                     </div>
+
                 </form>
-                <div className='flex flex-col w-full  gap-6 text-lg text-gray-custom'>
-                        <div className='flex flex-row justify-start w-full gap-1 text-base'>
-                            <p>Já tem uma conta?</p>
-                            <button className='text-blue-custom'>Entre aqui</button>
-                        </div>
-                        <div className='flex justify-center '>
-                            <a>Termos de Uso</a>
-                        </div>
-                        
+                <div className='flex flex-col w-full  gap-6 text-lg text-gray-custom h-full'>
+                    <div className='flex flex-row justify-start w-full gap-1 text-base h-auto'>
+                        <p>Já tem uma conta?</p>
+                        <button className='text-blue-custom'>Entre aqui</button>
                     </div>
+                    <div className='flex justify-center '>
+                        <a>Termos de Uso</a>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     );
