@@ -11,7 +11,6 @@ import 'react-phone-input-2/lib/style.css';
 export const NewUser = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-   
 
     const formik = useFormik({
         initialValues: {
@@ -24,11 +23,11 @@ export const NewUser = () => {
             password: '',
         },
         validationSchema: Yup.object({
-            nome: Yup.string().required('Preencha este campo.'),
-            sobrenome: Yup.string().required('Preencha este campo.'),
+            nome: Yup.string().required('Nome é obrigatório'),
+            sobrenome: Yup.string().required('preencha este campo.'),
             email: Yup.string()
                 .email('Email inválido')
-                .required('Preencha este campo.'),
+                .required('Email é obrigatório'),
             confirmEmail: Yup.string()
                 .oneOf([Yup.ref('email'), null], 'Os emails devem corresponder')
                 .required('Preencha este campo.'),
@@ -36,11 +35,11 @@ export const NewUser = () => {
                 /^\+?[1-9]\d{1,14}$/,
                 "Número inválido"
             )
-            .required('Preencha este campo.'),                  
+                .required('Preencha este campo.'),
             sexo: Yup.string(),
             password: Yup.string()
                 .min(8, 'A senha deve ter no mínimo 8 caracteres')
-                .required('Preencha este campo.'),
+                .required('Senha é obrigatória'),
         }),
         onSubmit: (values) => {
             dispatch(addPersonalTrainer(values));
@@ -49,14 +48,14 @@ export const NewUser = () => {
     });
 
     return (
-        <div className="bg-gray-custom h-full w-full pt-16">
-            <div className="bg-gray-100 p-8 w-11/12 max-w-md mx-auto flex flex-col items-center gap-8 rounded-lg shadow-lg">
+        <div className="bg-gray-custom h-screen w-full flex items-center justify-center px-4">
+    <div className="bg-gray-100 w-full max-w-md p-6 flex flex-col items-center rounded-lg shadow-lg gap-6">
                 <img
                     src={logoMfit}
                     alt="Logo Mfit"
-                    className="w-32 h-32"
+                    className="w-32 h-32 p-2"
                 />
-                <form onSubmit={formik.handleSubmit} className="w-full flex flex-col gap-3">
+                <form onSubmit={formik.handleSubmit} className="w-full flex flex-col  h-auto">
                     <div className="mb-4">
                         <input
                             type="text"
@@ -180,11 +179,22 @@ export const NewUser = () => {
                             <div className="text-red-500 text-sm p-1">{formik.errors.sexo}</div>
                         )}
                     </div>
-
-                    <button type="submit" className="bg-gray-custom text-white-custom py-3 mx-24 rounded-md">
-                        Cadastrar
-                    </button>
+                    <div className='flex items-center mx-auto'>
+                        <button type="submit" className="bg-gray-custom text-white-custom rounded-md  py-3 px-6 w-full text-sm">
+                            Cadastrar
+                        </button>
+                    </div>
                 </form>
+                <div className='flex flex-col w-full  gap-6 text-lg text-gray-custom'>
+                        <div className='flex flex-row justify-start w-full gap-1 text-base'>
+                            <p>Já tem uma conta?</p>
+                            <button className='text-blue-custom'>Entre aqui</button>
+                        </div>
+                        <div className='flex justify-center '>
+                            <a>Termos de Uso</a>
+                        </div>
+                        
+                    </div>
             </div>
         </div>
     );
