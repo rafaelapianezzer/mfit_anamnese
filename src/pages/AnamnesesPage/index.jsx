@@ -102,14 +102,15 @@ export const Anamneses = ({ modeloId }) => {
   return (
     <>
       <Header />
-      <div className="h-full bg-gray-200">
-        <div className="bg-gray-custom h-48 p-5">
-          <div className='max-w-screen-lg mx-auto'>
+      <div className="h-full bg-gray-200 ">
+        <div className="bg-gray-custom h-48 p-5 w-full">
+          <div className='w-full  lg:max-w-[80%] xl:max-w-[790px] md:max-w-[93%] mx-auto'>
             <button onClick={() => navigate('/homepage')} className='rounded bg-gray-secundary p-2 px-3 text-gray-custom text-xs mb-4'>Voltar</button>
             <h5 className='text-lg text-white'>Anamneses</h5>
           </div>
         </div>
-        <div className="bg-white w-11/12 rounded-lg absolute z-10 -mt-16 p-4 left-1/2 transform -translate-x-1/2 h-auto max-w-screen-lg">
+        <div className='p-4'>
+        <div className="bg-white-custom rounded-lg -mt-24 p-3  flex flex-col lg:max-w-[80%] xl:max-w-[790px] md:max-w-[93%] mx-auto">
           <div className="flex flex-col  justify-around gap-3 p-4 md:flex-row">
             <button
               onClick={() => setActiveView('modelos')}
@@ -174,6 +175,7 @@ export const Anamneses = ({ modeloId }) => {
                 ))}
               </ul>
             ))}
+        </div>
         </div>
       </div >
       {isModalOpen && (

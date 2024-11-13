@@ -46,7 +46,7 @@ export const UserActions = () => {
       </a>
      
      
-        <div className='bg-white-custom rounded-lg  lg:-mt-12 md:-mt-12 w-full  lg:max-w-[80%] md:max-w-[93%] p-1 pb-6'>
+        <div className='bg-white-custom rounded-lg  lg:-mt-12 md:-mt-12 w-full  lg:max-w-[80%] xl:max-w-[790px] md:max-w-[93%] p-1 pb-6'>
           <div className='flex flex-col gap-4 p-5 w-full'>
             <div className='flex justify-between  '>
               <h3 className='text-gray-custom'>Alunos</h3>

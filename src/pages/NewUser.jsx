@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import logoMfit from '../../src/assets/logo-mfit-azul2.png';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -10,6 +11,7 @@ import 'react-phone-input-2/lib/style.css';
 export const NewUser = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+   
 
     const formik = useFormik({
         initialValues: {
@@ -22,19 +24,23 @@ export const NewUser = () => {
             password: '',
         },
         validationSchema: Yup.object({
-            nome: Yup.string().required('Nome é obrigatório'),
-            sobrenome: Yup.string().required('Sobrenome é obrigatório'),
+            nome: Yup.string().required('Preencha este campo.'),
+            sobrenome: Yup.string().required('Preencha este campo.'),
             email: Yup.string()
                 .email('Email inválido')
-                .required('Email é obrigatório'),
+                .required('Preencha este campo.'),
             confirmEmail: Yup.string()
                 .oneOf([Yup.ref('email'), null], 'Os emails devem corresponder')
-                .required('Confirmação de email é obrigatória'),
-            whatsapp: Yup.string(),
+                .required('Preencha este campo.'),
+            whatsapp: Yup.string().matches(
+                /^\+?[1-9]\d{1,14}$/,
+                "Número inválido"
+            )
+            .required('Preencha este campo.'),                  
             sexo: Yup.string(),
             password: Yup.string()
                 .min(8, 'A senha deve ter no mínimo 8 caracteres')
-                .required('Senha é obrigatória'),
+                .required('Preencha este campo.'),
         }),
         onSubmit: (values) => {
             dispatch(addPersonalTrainer(values));
@@ -126,16 +132,14 @@ export const NewUser = () => {
                         )}
                     </div>
 
-                    <div className="mb-4">
+                    <div className='mb-4'>
                         <PhoneInput
                             country="br"
                             value={formik.values.whatsapp}
                             onChange={(phone) => formik.setFieldValue('whatsapp', phone)}
                             placeholder="(11) 96123-4567"
-                            className='w-full '
                             inputProps={{
                                 name: 'whatsapp',
-                                required: true,
                                 className: 'border w-full p-3 rounded border-gray-100 shadow-md focus:outline-none focus:shadow-lg placeholder-gray-400',
                             }}
                         />

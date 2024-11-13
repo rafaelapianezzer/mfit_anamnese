@@ -20,6 +20,10 @@ export const InitialLogin = () => {
         }
     };
 
+    const handleNewUser = () => {
+        navigate('/newUser')
+    };
+
     const handleEmailChange = (e) => {
         const value = e.target.value;
         setEmail(value);
@@ -38,7 +42,7 @@ export const InitialLogin = () => {
                 <img
                     src={fotoLogin}
                     alt='Foto de uma mulher na academia'
-                    className='object-cover w-full h-full rounded-lg shadow-lg relative'
+                    className='object-cover w-full h-screen rounded-lg shadow-lg relative'
                 />
                 <div className='fixed bottom-0 left-0 p-2'>
                     <p className='text-white'>Use a MFIT também no seu telefone</p>
@@ -86,7 +90,7 @@ export const InitialLogin = () => {
                         className='bg-gray-custom text-white px-20 py-2 border-2 border-gray-custom rounded'>
                         Entrar
                     </button>
-                    <button className='bg-white text-gray-custom px-20 py-2 border-gray-custom border-2 rounded'>
+                    <button className='bg-white text-gray-custom px-20 py-2 border-gray-custom border-2 rounded' onClick={handleNewUser}>
                         Não tenho uma conta
                     </button>
                     <div className='flex justify-center'>

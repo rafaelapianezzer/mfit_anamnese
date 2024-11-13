@@ -3,6 +3,8 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { addUser, deleteUser, updateUser } from "../../store/user/userReducer";
 import { toast } from 'react-toastify';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 export const FormUserActions = ({ user, onClose, isEdit }) => {
   const dispatch = useDispatch();
@@ -141,7 +143,7 @@ export const FormUserActions = ({ user, onClose, isEdit }) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.nascimento}
-            className="mt-1 p-1 w-full border rounded focus:outline-none focus:ring"
+            className="mt-1 p-1 w-full border rounded focus:outline-none focus:ring text-gray-400"
           />
           {formik.touched.nascimento && formik.errors.nascimento ? (
             <div className="text-red-500 text-sm">{formik.errors.nascimento}</div>
@@ -149,20 +151,22 @@ export const FormUserActions = ({ user, onClose, isEdit }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="whatsapp" className="block text-gray-500 text-sm">WhatsApp:</label>
-          <input
-            id="whatsapp"
-            name="whatsapp"
-            type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.whatsapp}
-            className="mt-1 p-1 w-full border rounded focus:outline-none focus:ring"
-          />
-          {formik.touched.whatsapp && formik.errors.whatsapp ? (
-            <div className="text-red-500 text-sm">{formik.errors.whatsapp}</div>
-          ) : null}
-        </div>
+                        <PhoneInput
+                            country="br"
+                            value={formik.values.whatsapp}
+                            onChange={(phone) => formik.setFieldValue('whatsapp', phone)}
+                            placeholder="(11) 96123-4567"
+                            className='w-full '
+                            inputProps={{
+                                name: 'whatsapp',
+                                required: true,
+                                className: 'border w-full p-3 rounded border-gray-100 shadow-md focus:outline-none focus:shadow-lg placeholder-gray-400',
+                            }}
+                        />
+                        {formik.touched.whatsapp && formik.errors.whatsapp && (
+                            <div className="text-red-500 text-sm p-1">{formik.errors.whatsapp}</div>
+                        )}
+                    </div>
 
         <div className="mb-4">
           <label className="block text-gray-500 text-sm">Sexo:</label>
