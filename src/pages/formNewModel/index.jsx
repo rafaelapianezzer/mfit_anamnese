@@ -49,7 +49,7 @@ export const FormNewModel = () => {
             <Header />
             <div className="bg-gray-custom h-48 p-5">
                 <div className='max-w-screen-lg mx-auto'>
-                    <button onClick={() => navigate('/')} className='rounded bg-gray-secundary p-2 px-3 text-gray-custom text-xs mb-4'>Voltar</button>
+                    <button onClick={() => navigate('/homepage')} className='rounded bg-gray-secundary p-2 px-3 text-gray-custom text-xs mb-4'>Voltar</button>
                     <h5 className='text-lg text-white'>Seus Alunos</h5>
                 </div>
             </div>

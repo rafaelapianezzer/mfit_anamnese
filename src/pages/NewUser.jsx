@@ -47,6 +47,23 @@ export const NewUser = () => {
         },
     });
 
+    const handleSubmitForm = async () => {
+        await formik.setTouched({
+            nome: true,
+            sobrenome: true,
+            email: true,
+            confirmEmail: true,
+            whatsapp: true,
+            sexo: true,
+            password: true,
+        });
+
+        const errors = await formik.validateForm();
+        if (Object.keys(errors).length === 0) {
+            formik.submitForm();
+        }
+    };
+
     return (
         <div className="bg-gray-custom  w-full flex items-center justify-center p-4 min-h-screen overflow-auto">
             <div className="bg-gray-100 w-full max-w-md p-6 flex flex-col items-center rounded-lg shadow-lg gap-6 h-auto  ">
@@ -130,18 +147,21 @@ export const NewUser = () => {
                             <div className="text-red-500 text-sm p-1">{formik.errors.password}</div>
                         )}
                     </div>
-                    <PhoneInput
-                        country="br" 
-                        value={formik.values.whatsapp}
-                        onChange={(phone) => formik.setFieldValue('whatsapp', phone)}
-                        // placeholder="(11) 
-                        enableAreaCodes={true} 
-                        countryCodeEditable={false} 
-                        inputProps={{
-                            name: 'whatsapp',
-                            className: 'border w-full py-3 pl-12 pr-3 rounded border-gray-100 shadow-md focus:outline-none focus:shadow-lg text-gray-400',
-                        }}
-                    />
+
+                    <div className='mb-4'>
+                        <PhoneInput
+                            country="br"
+                            value={formik.values.whatsapp}
+                            onChange={(phone) => formik.setFieldValue('whatsapp', phone)}
+
+                            enableAreaCodes={true}
+                            countryCodeEditable={false}
+                            inputProps={{
+                                name: 'whatsapp',
+                                className: 'border w-full py-3 pl-12 pr-3 rounded border-gray-100 shadow-md focus:outline-none focus:shadow-lg text-gray-400',
+                            }}
+                        />
+                    </div>
 
                     <div className="mb-4">
                         <label className="block text-gray-500 "></label>
@@ -175,24 +195,25 @@ export const NewUser = () => {
                             <div className="text-red-500 text-sm p-1">{formik.errors.sexo}</div>
                         )}
                     </div>
-                    <div className='flex items-center mx-auto flex-col py-3'>
-                        <button type="submit" className="bg-gray-custom text-white-custom rounded-md  py-3 px-6 w-full text-sm">
-                            Cadastrar
-                        </button>
-                    </div>
+
+                    <button
+                        type="button"
+                        className="bg-gray-custom text-white-custom rounded-md py-3 px-6 w-full text-sm"
+                        onClick={handleSubmitForm}
+                    >
+                        Cadastrar
+                    </button>
 
                 </form>
                 <div className='flex flex-col w-full  gap-6 text-lg text-gray-custom h-full'>
                     <div className='flex flex-row justify-start w-full gap-1 text-base h-auto'>
                         <p>Já tem uma conta?</p>
-                        <button className='text-blue-custom'>Entre aqui</button>
+                        <button className='text-blue-custom' onClick={() => navigate('/')}>Entre aqui</button>
                     </div>
                     <div className='flex justify-center '>
-                        <a>Termos de Uso</a>
+                        <a href='https://termosdeuso.mfitpersonal.com.br/' target='_blank'>Termos de Uso</a>
                     </div>
-
                 </div>
-
             </div>
         </div>
     );

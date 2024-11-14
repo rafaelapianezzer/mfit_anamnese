@@ -94,7 +94,7 @@ export const InitialLogin = () => {
                         Não tenho uma conta
                     </button>
                     <div className='flex justify-center'>
-                        <a href='https://termosdeuso.mfitpersonal.com.br/'>Termos de Serviço</a>
+                        <a href='https://termosdeuso.mfitpersonal.com.br/' target='_blank'>Termos de Serviço</a>
                     </div>
                 </div>
             </div>

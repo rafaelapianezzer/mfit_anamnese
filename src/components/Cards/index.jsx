@@ -79,11 +79,11 @@ export const Cards = () => {
 
   return (
     <>
-      <div className='flex flex-col items-center bg-gray-custom pb-20' >
+      <div className='flex flex-col items-center bg-gray-custom ' >
         <div className='flex justify-center'>
-          <img src={banner} alt='gif MFIT Personal' className='px-4 py-1'></img>
+          <img src={banner} alt='gif MFIT Personal' className='px-4 py-1 w-full h-auto'></img>
         </div>
-        <div className=' flex flex-row  py-30 justify-center gap-5 p-3 w-full  md:max-w-[93%] '>
+        <div className=' flex flex-row justify-center gap-5 p-3 w-full  md:max-w-[93%] pb-20'>
           <div
             className='flex bg-white-custom p-5 rounded-lg cursor-pointer  min-w-xs max-w-sm w-full'
             onClick={() => handleOpenModal()}

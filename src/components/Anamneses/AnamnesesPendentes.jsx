@@ -61,7 +61,7 @@ const AnamnesesPendentes = ({ anamnese }) => {
               <span className="block">{perguntaObj.pergunta}</span>
               <input
                 type="text"
-                value={respostas[index].resposta} // Correção aqui
+                value={respostas[index].resposta} 
                 onChange={(e) => handleRespostaChange(index, e.target.value)}
                 className="mt-1 p-1 border border-gray-300 rounded"
                 placeholder="Digite sua resposta"

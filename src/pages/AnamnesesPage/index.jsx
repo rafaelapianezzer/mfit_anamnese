@@ -8,7 +8,7 @@ import { AnamnesesRespondidas } from '../../components/Anamneses/AnamnesesRespon
 import { Modal } from '../../components/Modal';
 import { toast } from 'react-toastify';
 
-export const Anamneses = ({ modeloId }) => {
+export const Anamneses = () => {
   const [activeView, setActiveView] = useState('modelos');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedModelo, setSelectedModelo] = useState(null);
@@ -158,12 +158,16 @@ export const Anamneses = ({ modeloId }) => {
               ))}
             </ul>
           )}
-          {activeView === 'pendentes' && (
+          {activeView === 'pendentes' && 
+          ( pendentes.length === 0 ? (
+            <h3 className='text-center text-gray-custom p-6'>Seus alunos não têm nenhuma anamnese pendente</h3>
+          ) : (
             <ul className='flex flex-col'>
               {pendentes.map((anamnese) => (
                 <AnamnesesPendentes key={anamnese.id} anamnese={anamnese} />
               ))}
             </ul>
+          )
           )}
           {activeView === 'respondidas' &&
             (respondidas.length === 0 ? (

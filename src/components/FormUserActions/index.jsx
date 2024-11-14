@@ -57,12 +57,12 @@ export const FormUserActions = ({ user, onClose, isEdit }) => {
       dispatch(deleteUser(user.email));
       toast.success(
         <>
-        Tudo certo! <br />
-           <div className='text-sm'>
-           Aluno excluído com sucesso
-           </div>
-        </>   
-       );
+          Tudo certo! <br />
+          <div className='text-sm'>
+            Aluno excluído com sucesso
+          </div>
+        </>
+      );
       onClose()
     }
   };
@@ -150,23 +150,20 @@ export const FormUserActions = ({ user, onClose, isEdit }) => {
           ) : null}
         </div>
 
-        <div className="mb-4">
-                        <PhoneInput
-                            country="br"
-                            value={formik.values.whatsapp}
-                            onChange={(phone) => formik.setFieldValue('whatsapp', phone)}
-                            placeholder="(11) 96123-4567"
-                            className='w-full '
-                            inputProps={{
-                                name: 'whatsapp',
-                                required: true,
-                                className: 'border w-full p-3 rounded border-gray-100 shadow-md focus:outline-none focus:shadow-lg placeholder-gray-400',
-                            }}
-                        />
-                        {formik.touched.whatsapp && formik.errors.whatsapp && (
-                            <div className="text-red-500 text-sm p-1">{formik.errors.whatsapp}</div>
-                        )}
-                    </div>
+        <div className='mb-4'>
+          <PhoneInput
+            country="br"
+            value={formik.values.whatsapp}
+            onChange={(phone) => formik.setFieldValue('whatsapp', phone)}
+
+            enableAreaCodes={true}
+            countryCodeEditable={false}
+            inputProps={{
+              name: 'whatsapp',
+              className: 'border w-full py-3 pl-12 pr-3 rounded border-gray-100 shadow-md focus:outline-none focus:shadow-lg text-gray-400',
+            }}
+          />
+        </div>
 
         <div className="mb-4">
           <label className="block text-gray-500 text-sm">Sexo:</label>
