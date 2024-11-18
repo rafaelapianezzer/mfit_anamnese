@@ -34,6 +34,19 @@ const anamnesesSlice = createSlice({
       }
     },
 
+    editAnamnese: (state, action) => {
+      const { id, updatedData } = action.payload;
+      const anamneseIndex = state.anamnesesList.findIndex(
+        (anamnese) => anamnese.id === id
+      );
+      if (anamneseIndex !== -1) {
+        state.anamnesesList[anamneseIndex] = {
+          ...state.anamnesesList[anamneseIndex],
+          ...updatedData,
+        };
+      }
+    },
+
     hasPendingAnamnese(state) {
       return state.anamnesesList.some(anamnese => anamnese.status === 1);
     },
@@ -53,6 +66,7 @@ export const {
   removeAnamnese,
   updateAnamneseStatus,
   saveRespostas,
+  editAnamnese, 
   hasPendingAnamnese,
   hasRespondedAnamnese
 } = anamnesesSlice.actions;

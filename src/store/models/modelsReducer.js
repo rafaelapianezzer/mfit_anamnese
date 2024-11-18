@@ -3,13 +3,27 @@ import { v4 as uuidv4 } from 'uuid';
 
 const modeloPadrao = {
     id: 1,
-    nome: "padrao",
+    nome: "Padrão",
     aluno: null,
     perguntas: [
-        { id: uuidv4(), pergunta: "pergunta 1?", resposta: "" },
-        { id: uuidv4(), pergunta: "pergunta 2?", resposta: "" },
-        { id: uuidv4(), pergunta: "pergunta 3?", resposta: "" },
-        { id: uuidv4(), pergunta: "pergunta 4?", resposta: "" }
+        { id: uuidv4(), pergunta: "Qual é o seu objetivo?", resposta: "" },
+        { id: uuidv4(), pergunta: "Pratica atividade física? Há quanto tempo e quais atividades?", resposta: "" },
+        { id: uuidv4(), pergunta: "Faz quantas refeições por dia?", resposta: "" },
+        { id: uuidv4(), pergunta: "Faz dieta? Acompanhada ou alguma específica?", resposta: "" },
+        { id: uuidv4(), pergunta: "Faz suplementação? Se sim, quais suplementos?", resposta: "" },
+        { id: uuidv4(), pergunta: "Dorme quantas horas por noite?", resposta: "" },
+        { id: uuidv4(), pergunta: "Fuma? Se sim, quantos cigarros por dia?", resposta: "" },
+        { id: uuidv4(), pergunta: "Consome bebidas alcoólicas? Se sim, quantas vezes por semana?", resposta: "" },
+        { id: uuidv4(), pergunta: "Possui colesterol, triglicérides ou glicose altas?", resposta: "" },
+        { id: uuidv4(), pergunta: "Possui alguma alteração cardiaca? Se sim, qual?", resposta: "" },
+        { id: uuidv4(), pergunta: "Tem diabetes?", resposta: "" },
+        { id: uuidv4(), pergunta: "É hipertenso?", resposta: "" },
+        { id: uuidv4(), pergunta: "Possui problemas pulmonares? Quais?", resposta: "" },
+        { id: uuidv4(), pergunta: "Toma algum medicamento controlado? Quais?", resposta: "" },
+        { id: uuidv4(), pergunta: "Fez alguma cirurgia? Qual?", resposta: "" },
+        { id: uuidv4(), pergunta: "Apresenta dores na coluna, articulações ou dores musculares?", resposta: "" },
+        { id: uuidv4(), pergunta: "Possui algum problema ortopédico diagnosticado? Quais?", resposta: "" },
+        { id: uuidv4(), pergunta: "Observações:", resposta: "" }
     ]
 };
 

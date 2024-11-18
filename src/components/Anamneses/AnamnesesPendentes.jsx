@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Modal } from "../Modal";
 import { useDispatch } from "react-redux";
 import { saveRespostas, removeAnamnese, updateAnamneseStatus } from '../../store/anamneses/anamnesesReducer';
+import { useNavigate } from "react-router-dom";
 
 const AnamnesesPendentes = ({ anamnese }) => {
-
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const [respostas, setRespostas] = useState(
@@ -30,8 +31,9 @@ const AnamnesesPendentes = ({ anamnese }) => {
   };
 
   const handleEditAnamnese = () => {
-    setOpen(prevState => !prevState);
+    navigate(`/EditAnamnese/${anamnese.id}`);
   };
+
 
   return (
     <>
@@ -49,7 +51,7 @@ const AnamnesesPendentes = ({ anamnese }) => {
           <i className="fa-light fa-trash text-white-custom bg-red-600 px-2 py-1 rounded text-xs"></i>
         </button>
       </li>
-      <Modal isOpen={open}>
+      {/* <Modal isOpen={open}>
         <div className="p-5">
           <span className="flex">
             Nome: {anamnese.nome}
@@ -72,7 +74,7 @@ const AnamnesesPendentes = ({ anamnese }) => {
             Salvar Respostas
           </button>
         </div>
-      </Modal>
+      </Modal> */}
     </>
   );
 };

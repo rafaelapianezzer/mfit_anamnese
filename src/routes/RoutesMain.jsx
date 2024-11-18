@@ -7,6 +7,8 @@ import { InitialLogin } from '../pages/loginPage/InitialLogin';
 import { ClientPage } from '../pages/ClientPage';
 import { LogOut } from '../pages/LogOut';
 import { NewUser } from '../pages/NewUser';
+import EditAnamnese from '../pages/AnamnesesPage/EditAnamnese';
+import ModelosPage from '../pages/ModelosPage';
 
 
 export const RoutesMain = () => {
@@ -18,8 +20,10 @@ export const RoutesMain = () => {
             <Route path='/modelform' element={<FormNewModel/>}/>
             <Route path='/anamnesesRespondidas' element={<AnamnesesRespondidas/>}/>
             <Route path='/clientPage' element={<ClientPage/>}/>
+            <Route path='/EditAnamnese/:id' element={<EditAnamnese />} />
             <Route path='/logout' element={<LogOut/>}/>
             <Route path='/newUser' element={<NewUser/>}/>
+            <Route path="/modelos/:id" element={<ModelosPage/>} />
         </Routes>
     )
 }

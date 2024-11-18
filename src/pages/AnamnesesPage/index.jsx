@@ -161,13 +161,14 @@ export const Anamneses = () => {
           {activeView === 'pendentes' && 
           ( pendentes.length === 0 ? (
             <h3 className='text-center text-gray-custom p-6'>Seus alunos não têm nenhuma anamnese pendente</h3>
-          ) : (
+          ) :
+            
+            
             <ul className='flex flex-col'>
               {pendentes.map((anamnese) => (
                 <AnamnesesPendentes key={anamnese.id} anamnese={anamnese} />
               ))}
             </ul>
-          )
           )}
           {activeView === 'respondidas' &&
             (respondidas.length === 0 ? (
