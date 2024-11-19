@@ -68,15 +68,6 @@ const EditAnamnese = () => {
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
     </div>
   );
 };
