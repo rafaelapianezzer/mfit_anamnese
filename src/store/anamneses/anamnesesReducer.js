@@ -30,10 +30,11 @@ const anamnesesSlice = createSlice({
       const { id, respostas } = action.payload;
       const anamnese = state.anamnesesList.find((anamnese) => anamnese.id === id);
       if (anamnese) {
-        anamnese.perguntas = respostas; 
+        anamnese.perguntas = respostas;
+        anamnese.status = 2;
       }
     },
-
+    
     editAnamnese: (state, action) => {
       const { id, updatedData } = action.payload;
       const anamneseIndex = state.anamnesesList.findIndex(

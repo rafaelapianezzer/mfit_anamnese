@@ -51,30 +51,6 @@ const AnamnesesPendentes = ({ anamnese }) => {
           <i className="fa-light fa-trash text-white-custom bg-red-600 px-2 py-1 rounded text-xs"></i>
         </button>
       </li>
-      {/* <Modal isOpen={open}>
-        <div className="p-5">
-          <span className="flex">
-            Nome: {anamnese.nome}
-            <span onClick={handleEditAnamnese}>X</span>
-          </span>
-          <span className="block">Aluno: {anamnese.aluno}</span>
-          {anamnese.perguntas.map((perguntaObj, index) => (
-            <div key={index} className="my-2">
-              <span className="block">{perguntaObj.pergunta}</span>
-              <input
-                type="text"
-                value={respostas[index].resposta} 
-                onChange={(e) => handleRespostaChange(index, e.target.value)}
-                className="mt-1 p-1 border border-gray-300 rounded"
-                placeholder="Digite sua resposta"
-              />
-            </div>
-          ))}
-          <button onClick={() => handleSave(anamnese.id)} className="mt-4 p-2 bg-blue-500 text-white rounded">
-            Salvar Respostas
-          </button>
-        </div>
-      </Modal> */}
     </>
   );
 };

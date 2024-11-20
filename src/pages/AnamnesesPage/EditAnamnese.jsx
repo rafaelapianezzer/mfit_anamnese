@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { editAnamnese } from '../../store/anamneses/anamnesesReducer';
+import { saveRespostas } from '../../store/anamneses/anamnesesReducer';
 import { Header } from '../../components/Header';
 
 const EditAnamnese = () => {
@@ -29,7 +29,7 @@ const EditAnamnese = () => {
   };
 
   const handleSave = () => {
-    dispatch(editAnamnese({ id: anamnese.id, respostas }));
+    dispatch(saveRespostas({ id: anamnese.id, respostas }));
     navigate('/homepage');
   };
 
