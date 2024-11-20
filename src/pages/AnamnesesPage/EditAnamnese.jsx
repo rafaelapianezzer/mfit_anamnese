@@ -40,31 +40,38 @@ const EditAnamnese = () => {
   return (
     <div>
       <Header />
-      <div className="h-screen bg-gray-200 ">
+
+      <div className="h-full bg-gray-200 ">
         <div className="bg-gray-custom h-48 p-5 w-full">
           <div className='w-full  lg:max-w-[80%] xl:max-w-[790px] md:max-w-[93%] mx-auto'>
             <button onClick={() => navigate('/homepage')} className='rounded bg-gray-secundary p-2 px-3 text-gray-custom text-xs mb-4'>Voltar</button>
-            <h5 className='text-lg text-white'>Editar anamnese</h5>
+            <h5 className='text-lg text-white-custom'>Editar anamnese</h5>
           </div>
         </div>
         <div className='p-4'>
           <div className="bg-white-custom rounded-lg -mt-24 p-3  flex flex-col lg:max-w-[80%] xl:max-w-[790px] md:max-w-[93%] mx-auto">
-            <form>
-              <h3 className='text-gray-custom text-lg'>{anamnese.nome}</h3>
+            <div className='flex  flex-col'>
+              <div className='flex flex-row justify-between py-3 items-center'>
+                <h3 className='text-gray-custom text-xl font-semibold'>{anamnese.aluno}</h3>
+              </div>
               <ul>
                 {anamnese.perguntas.map((pergunta, index) => (
-                  <li key={index}>
-                    <p>{pergunta.pergunta}</p>
-                    <input
-                      type="text"
-                      value={respostas[index]?.resposta || ''}
-                      onChange={(e) => handleRespostaChange(index, e.target.value)}
-                    />
+                  <li key={index} className='py-3'>
+                    <p className='mb-2 text-gray-custom font-medium'>{pergunta.pergunta}</p>
+                    <div className='bg-gray-200 rounded-tl-lg rounded-lg  min-h-12 flex items-center p-2 w-full'>
+                      <input
+                        type="text"
+                        value={respostas[index]?.resposta || ''}
+                        className='bg-gray-200 text-gray-700 flex-1'
+                        placeholder='Digite sua resposta'
+                        onChange={(e) => handleRespostaChange(index, e.target.value)}
+                      />
+                    </div>
                   </li>
                 ))}
               </ul>
-              <button onClick={handleSave}>Salvar</button>
-            </form>
+              <button onClick={handleSave} className='bg-gray-custom text-white-custom p-3 rounded-lg my-6'>Salvar</button>
+            </div>
           </div>
         </div>
       </div>
