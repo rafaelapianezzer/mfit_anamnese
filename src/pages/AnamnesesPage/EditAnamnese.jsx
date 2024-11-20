@@ -40,19 +40,18 @@ const EditAnamnese = () => {
   return (
     <div>
       <Header />
-
-      <div className="h-full bg-gray-200 ">
+      <div className="h-full min-h-screen bg-gray-200 ">
         <div className="bg-gray-custom h-48 p-5 w-full">
           <div className='w-full  lg:max-w-[80%] xl:max-w-[790px] md:max-w-[93%] mx-auto'>
-            <button onClick={() => navigate('/homepage')} className='rounded bg-gray-secundary p-2 px-3 text-gray-custom text-xs mb-4'>Voltar</button>
-            <h5 className='text-lg text-white-custom'>Editar anamnese</h5>
+            <button onClick={() => navigate('/anamneses')} className='rounded bg-gray-secundary p-2 px-3 text-gray-custom text-xs mb-4'>Voltar</button>
+            <h5 className='text-lg text-white-custom'>{anamnese.aluno}</h5>
           </div>
         </div>
         <div className='p-4'>
           <div className="bg-white-custom rounded-lg -mt-24 p-3  flex flex-col lg:max-w-[80%] xl:max-w-[790px] md:max-w-[93%] mx-auto">
             <div className='flex  flex-col'>
               <div className='flex flex-row justify-between py-3 items-center'>
-                <h3 className='text-gray-custom text-xl font-semibold'>{anamnese.aluno}</h3>
+                <h3 className='text-gray-custom text-xl font-semibold'>{anamnese.nome}</h3>
               </div>
               <ul>
                 {anamnese.perguntas.map((pergunta, index) => (

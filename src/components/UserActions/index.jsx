@@ -27,7 +27,7 @@ export const UserActions = () => {
 
 
   return (
-    <div className='flex items-center flex-col px-3 bg-gray-200 gap-8 h-screen '>
+    <div className='flex items-center flex-col px-3 bg-gray-200 gap-8 h-full min-h-screen '>
       <a
         href="https://www.instagram.com/mfitpersonal/"
         target="_blank"

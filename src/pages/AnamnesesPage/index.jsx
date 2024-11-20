@@ -21,7 +21,7 @@ export const Anamneses = () => {
   const [perguntas, setPerguntas] = useState("");
   const [showAddQuestion, setShowAddQuestion] = useState(false);
   const [novaPergunta, setNovaPergunta] = useState('');
-  
+
 
   const handleDelete = (id) => {
     dispatch(removeModelo(id));
@@ -188,25 +188,25 @@ export const Anamneses = () => {
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           <div className=" bg-white-custom max-h-[80vh] p-4 overflow-auto rounded-lg flex flex-col">
             <div className='flex flex-row justify-between py-3 items-center '>
-            <h3 className='text-gray-custom text-xl font-semibold'>{selectedModelo?.nome}</h3>
-            <i class="fa-regular fa-x fa-xs text-gray-500" onClick={handleCloseModal}></i>
+              <h3 className='text-gray-custom text-xl font-semibold'>{selectedModelo?.nome}</h3>
+              <i class="fa-regular fa-x fa-xs text-gray-500" onClick={handleCloseModal}></i>
             </div>
             <div>
               <p className='mb-2 mt-6 text-gray-custom font-medium'>Nome da anamnese:</p>
               <div className='bg-gray-200 rounded-lg  min-h-14 flex items-center p-2'>
-              {selectedModelo?.id === 1 ? (
-                <p className='text-gray-700'>{selectedModelo?.nome}</p>
-              ) : (
-                <div>
-                  <input
-                  type="text"
-                  name="nome"
-                  className='bg-gray-200 text-gray-700'
-                  value={selectedModelo?.nome || ''}
-                  onChange={handleEditChange}
-                />
+                {selectedModelo?.id === 1 ? (
+                  <p className='text-gray-700'>{selectedModelo?.nome}</p>
+                ) : (
+                  <div>
+                    <input
+                      type="text"
+                      name="nome"
+                      className='bg-gray-200 text-gray-700'
+                      value={selectedModelo?.nome || ''}
+                      onChange={handleEditChange}
+                    />
                   </div>
-              )}
+                )}
               </div>
             </div>
             <div>
@@ -220,17 +220,17 @@ export const Anamneses = () => {
                       </div>
                       :
                       <div className='flex w-full justify-between min-h-14'>
-                       <div className='bg-gray-200 rounded-tl-lg rounded-bl-lg  min-h-14 flex items-center p-2 w-full '>
-                       <input
-                          type="text"
-                          name={`pergunta_${pergunta.id}`}
-                          value={pergunta.pergunta || ''}
-                          className='bg-gray-200 text-gray-700 flex-1 '
-                          onChange={(e) => handleEditChange(e, pergunta.id)} 
+                        <div className='bg-gray-200 rounded-tl-lg rounded-bl-lg  min-h-14 flex items-center p-2 w-full '>
+                          <input
+                            type="text"
+                            name={`pergunta_${pergunta.id}`}
+                            value={pergunta.pergunta || ''}
+                            className='bg-gray-200 text-gray-700 flex-1 '
+                            onChange={(e) => handleEditChange(e, pergunta.id)}
                           />
-                         
-                       </div>
-                       <i onClick={() => handleRemoveQuestion(selectedModelo.id, pergunta.id)} className="fa-light fa-trash text-red-600 border
+
+                        </div>
+                        <i onClick={() => handleRemoveQuestion(selectedModelo.id, pergunta.id)} className="fa-light fa-trash text-red-600 border
                            border-red-600 rounded-tr-lg rounded-br-lg  px-5 flex items-center"></i>
                       </div>
                     }
